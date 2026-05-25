@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Drive Path Copier",
+  "version": "1.0",
+  "description": "Google DriveのフォルダパスをWindowsパス形式（G:\\...）でクリップボードにコピーします",
+  "permissions": ["identity", "tabs", "storage"],
+  "host_permissions": [
+    "https://www.googleapis.com/*"
+  ],
+  "oauth2": {
+    "client_id": "437776167125-ka9r05t6ejsg46dh77h581s51ofjo8bg.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Drive Path Copy",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png"
+    }
+  }
+}
