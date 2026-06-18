@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プライバシーポリシー — Drive Path Copier / Privacy Policy</title>
+  <style>
+    :root { --blue: #1a73e8; --ink: #202124; --muted: #5f6368; --line: #e8eaed; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--ink);
+      font-family: "Segoe UI", "Yu Gothic UI", "Hiragino Sans", sans-serif;
+      line-height: 1.8; background: #fff;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+    h1 { font-size: 26px; color: var(--blue); margin: 0 0 4px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    h2 { font-size: 19px; margin: 36px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+    h3 { font-size: 15px; margin: 22px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+    th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f8f9fa; }
+    a { color: var(--blue); }
+    code { background: #f1f3f4; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+    .back { display: inline-block; margin-bottom: 24px; font-size: 14px; }
+    footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .lang-sep { margin: 48px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">&larr; Drive Path Copier</a>
+    <h1>プライバシーポリシー</h1>
+    <p class="meta">最終更新日：2026年6月18日</p>
+
+    <p>
+      Drive Path Copier（以下「本拡張機能」）は、ユーザーのプライバシーを最優先に設計されています。
+      本ポリシーは、本拡張機能が取り扱うデータと、その利用方法について説明します。
+    </p>
+
+    <h2>1. 取り扱うデータ</h2>
+    <table>
+      <tr><th>データ</th><th>取得元</th><th>目的</th><th>保管場所</th></tr>
+      <tr>
+        <td>Google Drive のフォルダのメタデータ（フォルダ名、親フォルダ、共有ドライブ名）</td>
+        <td>Google Drive API（読み取り専用）</td>
+        <td>Windows 形式のパス文字列を組み立てるため</td>
+        <td>保存しない（処理後はクリップボードに出力するのみ）</td>
+      </tr>
+      <tr>
+        <td>Google アカウントのメールアドレス</td>
+        <td>Google userinfo エンドポイント</td>
+        <td>アカウントごとのドライブ文字設定を識別するため</td>
+        <td>ブラウザのローカルストレージ（<code>chrome.storage.sync</code>）</td>
+      </tr>
+      <tr>
+        <td>ドライブ文字の設定（例：G、H）</td>
+        <td>ユーザー入力</td>
+        <td>パス生成に使用</td>
+        <td>ブラウザのローカルストレージ（<code>chrome.storage.sync</code>）</td>
+      </tr>
+    </table>
+
+    <h2>2. データの外部送信について</h2>
+    <p>
+      <strong>本拡張機能は、いかなるユーザーデータも開発者や第三者のサーバーへ送信しません。</strong>
+      Google Drive API および userinfo エンドポイントへの通信は、ユーザー本人のデータを取得するために
+      Google のサーバーと直接行われるものであり、それ以外の外部送信は一切ありません。
+      設定データ（メールアドレス・ドライブ文字）は、Chrome が管理するローカルストレージにのみ保存されます。
+    </p>
+
+    <h2>3. 取得する権限とスコープ</h2>
+    <p>Google Drive API へのアクセスは読み取り専用に限定しています。要求する OAuth スコープは以下のとおりです。</p>
+    <ul>
+      <li><code>.../auth/drive.readonly</code>：フォルダ名・親フォルダ情報の取得（読み取り専用）</li>
+      <li><code>.../auth/userinfo.email</code>：ドライブ文字設定のためのアカウント識別</li>
+    </ul>
+    <p>ファイルの内容の閲覧・作成・編集・削除は一切行いません。</p>
+
+    <h2>4. 第三者提供・販売</h2>
+    <p>取得したデータを第三者に販売・譲渡・提供することはありません。広告・分析・トラッキングの目的での利用もありません。</p>
+
+    <h2>5. データの削除</h2>
+    <p>
+      ローカルに保存される設定データは、拡張機能をアンインストールするか、設定画面から該当項目を削除することで
+      いつでも消去できます。本拡張機能が外部に保持するデータは存在しません。
+    </p>
+
+    <h2>6. お問い合わせ</h2>
+    <p>本ポリシーに関するお問い合わせは <a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a> までご連絡ください。</p>
+
+    <hr class="lang-sep">
+
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: June 18, 2026</p>
+
+    <p>
+      Drive Path Copier ("the Extension") is designed with user privacy as the top priority.
+      This policy explains what data the Extension handles and how it is used.
+    </p>
+
+    <h2>1. Data Handled</h2>
+    <table>
+      <tr><th>Data</th><th>Source</th><th>Purpose</th><th>Storage</th></tr>
+      <tr>
+        <td>Google Drive folder metadata (folder name, parents, shared drive name)</td>
+        <td>Google Drive API (read-only)</td>
+        <td>To build a Windows-style path string</td>
+        <td>Not stored (output to clipboard only)</td>
+      </tr>
+      <tr>
+        <td>Google account email address</td>
+        <td>Google userinfo endpoint</td>
+        <td>To identify per-account drive-letter settings</td>
+        <td>Browser local storage (<code>chrome.storage.sync</code>)</td>
+      </tr>
+      <tr>
+        <td>Drive-letter settings (e.g. G, H)</td>
+        <td>User input</td>
+        <td>Used for path generation</td>
+        <td>Browser local storage (<code>chrome.storage.sync</code>)</td>
+      </tr>
+    </table>
+
+    <h2>2. No External Transmission</h2>
+    <p>
+      <strong>The Extension does not transmit any user data to the developer's or any third-party servers.</strong>
+      Requests to the Google Drive API and userinfo endpoint are made directly to Google's servers solely to
+      retrieve the user's own data. Settings (email and drive letters) are stored only in Chrome's local storage.
+    </p>
+
+    <h2>3. Permissions and Scopes</h2>
+    <p>Access to the Google Drive API is strictly read-only. The requested OAuth scopes are:</p>
+    <ul>
+      <li><code>.../auth/drive.readonly</code>: retrieve folder name and parent information (read-only)</li>
+      <li><code>.../auth/userinfo.email</code>: identify the account for drive-letter settings</li>
+    </ul>
+    <p>The Extension never reads file contents, nor creates, edits, or deletes any files.</p>
+
+    <h2>4. No Sharing or Sale</h2>
+    <p>We never sell, transfer, or share collected data with third parties, and never use it for advertising, analytics, or tracking.</p>
+
+    <h2>5. Data Deletion</h2>
+    <p>
+      Locally stored settings can be removed at any time by uninstalling the Extension or deleting the relevant
+      entries from the settings screen. The Extension holds no data externally.
+    </p>
+
+    <h2>6. Contact</h2>
+    <p>For questions about this policy, contact <a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a>.</p>
+
+    <footer>
+      © 2026 Drive Path Copier ·
+      <a href="index.html">Home</a> ·
+      <a href="https://github.com/yuuukichiiii/drive-path-copier">Source code</a>
+    </footer>
+  </div>
+</body>
+</html>
