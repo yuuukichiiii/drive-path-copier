@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>プライバシーポリシー — Drive Path Copier / Privacy Policy</title>
+  <title>Privacy Policy - Drive Path Copier</title>
   <style>
     :root { --blue: #1a73e8; --ink: #202124; --muted: #5f6368; --line: #e8eaed; }
     * { box-sizing: border-box; }
@@ -12,142 +12,215 @@
       font-family: "Segoe UI", "Yu Gothic UI", "Hiragino Sans", sans-serif;
       line-height: 1.8; background: #fff;
     }
-    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+    .wrap { max-width: 780px; margin: 0 auto; padding: 48px 20px 80px; }
     h1 { font-size: 26px; color: var(--blue); margin: 0 0 4px; }
-    .meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
     h2 { font-size: 19px; margin: 36px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
-    h3 { font-size: 15px; margin: 22px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
     table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
     th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
     th { background: #f8f9fa; }
     a { color: var(--blue); }
     code { background: #f1f3f4; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
-    .back { display: inline-block; margin-bottom: 24px; font-size: 14px; }
+    .notice { background: #e8f0fe; border-left: 4px solid var(--blue); padding: 12px 16px; border-radius: 4px; }
+    .lang { font-size: 14px; margin-bottom: 20px; }
+    hr { border: none; border-top: 2px solid var(--line); margin: 56px 0 40px; }
     footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
-    .lang-sep { margin: 48px 0 0; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <a class="back" href="index.html">&larr; Drive Path Copier</a>
-    <h1>プライバシーポリシー</h1>
-    <p class="meta">最終更新日：2026年6月18日</p>
-
-    <p>
-      Drive Path Copier（以下「本拡張機能」）は、ユーザーのプライバシーを最優先に設計されています。
-      本ポリシーは、本拡張機能が取り扱うデータと、その利用方法について説明します。
-    </p>
-
-    <h2>1. 取り扱うデータ</h2>
-    <table>
-      <tr><th>データ</th><th>取得元</th><th>目的</th><th>保管場所</th></tr>
-      <tr>
-        <td>Google Drive のフォルダのメタデータ（フォルダ名、親フォルダ、共有ドライブ名）</td>
-        <td>Google Drive API（読み取り専用）</td>
-        <td>Windows 形式のパス文字列を組み立てるため</td>
-        <td>保存しない（処理後はクリップボードに出力するのみ）</td>
-      </tr>
-      <tr>
-        <td>Google アカウントのメールアドレス</td>
-        <td>Google userinfo エンドポイント</td>
-        <td>アカウントごとのドライブ文字設定を識別するため</td>
-        <td>ブラウザのローカルストレージ（<code>chrome.storage.sync</code>）</td>
-      </tr>
-      <tr>
-        <td>ドライブ文字の設定（例：G、H）</td>
-        <td>ユーザー入力</td>
-        <td>パス生成に使用</td>
-        <td>ブラウザのローカルストレージ（<code>chrome.storage.sync</code>）</td>
-      </tr>
-    </table>
-
-    <h2>2. データの外部送信について</h2>
-    <p>
-      <strong>本拡張機能は、いかなるユーザーデータも開発者や第三者のサーバーへ送信しません。</strong>
-      Google Drive API および userinfo エンドポイントへの通信は、ユーザー本人のデータを取得するために
-      Google のサーバーと直接行われるものであり、それ以外の外部送信は一切ありません。
-      設定データ（メールアドレス・ドライブ文字）は、Chrome が管理するローカルストレージにのみ保存されます。
-    </p>
-
-    <h2>3. 取得する権限とスコープ</h2>
-    <p>Google Drive API へのアクセスは読み取り専用に限定しています。要求する OAuth スコープは以下のとおりです。</p>
-    <ul>
-      <li><code>.../auth/drive.readonly</code>：フォルダ名・親フォルダ情報の取得（読み取り専用）</li>
-      <li><code>.../auth/userinfo.email</code>：ドライブ文字設定のためのアカウント識別</li>
-    </ul>
-    <p>ファイルの内容の閲覧・作成・編集・削除は一切行いません。</p>
-
-    <h2>4. 第三者提供・販売</h2>
-    <p>取得したデータを第三者に販売・譲渡・提供することはありません。広告・分析・トラッキングの目的での利用もありません。</p>
-
-    <h2>5. データの削除</h2>
-    <p>
-      ローカルに保存される設定データは、拡張機能をアンインストールするか、設定画面から該当項目を削除することで
-      いつでも消去できます。本拡張機能が外部に保持するデータは存在しません。
-    </p>
-
-    <h2>6. お問い合わせ</h2>
-    <p>本ポリシーに関するお問い合わせは <a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a> までご連絡ください。</p>
-
-    <hr class="lang-sep">
+    <p class="lang"><a href="index.html">&larr; Drive Path Copier</a> · <a href="#ja">日本語</a></p>
 
     <h1>Privacy Policy</h1>
-    <p class="meta">Last updated: June 18, 2026</p>
+    <p class="meta">Effective date: November 7, 2026</p>
 
     <p>
-      Drive Path Copier ("the Extension") is designed with user privacy as the top priority.
-      This policy explains what data the Extension handles and how it is used.
+      This Privacy Policy explains how <strong>Drive Path Copier</strong> (the "Extension"), a Google Chrome
+      extension, accesses, uses, stores, and shares data, including Google user data obtained through Google APIs.
+      The Extension is developed and maintained by an individual developer
+      (contact: <a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a>).
     </p>
 
-    <h2>1. Data Handled</h2>
+    <h2>1. What the Extension does</h2>
+    <p>
+      When you open a folder in Google Drive in your browser and click the Extension's button, the Extension
+      builds the Windows Explorer path of that folder as it appears under Google Drive for desktop
+      (for example, <code>G:\Shared drives\Project\Folder</code>) and copies it to your clipboard.
+      This is the Extension's single purpose.
+    </p>
+
+    <h2>2. Google user data the Extension accesses</h2>
     <table>
-      <tr><th>Data</th><th>Source</th><th>Purpose</th><th>Storage</th></tr>
+      <tr><th>Data</th><th>OAuth scope</th><th>Why it is needed</th></tr>
       <tr>
-        <td>Google Drive folder metadata (folder name, parents, shared drive name)</td>
-        <td>Google Drive API (read-only)</td>
-        <td>To build a Windows-style path string</td>
-        <td>Not stored (output to clipboard only)</td>
+        <td>Metadata of the Google Drive folder you are currently viewing and of its parent folders:
+          folder name, parent folder IDs, and shared drive ID; and the name of the shared drive</td>
+        <td><code>https://www.googleapis.com/auth/drive.readonly</code></td>
+        <td>To reconstruct the folder hierarchy from the open folder up to the root, which is required to build the path</td>
       </tr>
       <tr>
-        <td>Google account email address</td>
-        <td>Google userinfo endpoint</td>
-        <td>To identify per-account drive-letter settings</td>
-        <td>Browser local storage (<code>chrome.storage.sync</code>)</td>
-      </tr>
-      <tr>
-        <td>Drive-letter settings (e.g. G, H)</td>
-        <td>User input</td>
-        <td>Used for path generation</td>
-        <td>Browser local storage (<code>chrome.storage.sync</code>)</td>
+        <td>Email address of the signed-in Google account</td>
+        <td><code>https://www.googleapis.com/auth/userinfo.email</code></td>
+        <td>To choose the drive letter (G:, H:, ...) you assigned to that account</td>
       </tr>
     </table>
-
-    <h2>2. No External Transmission</h2>
     <p>
-      <strong>The Extension does not transmit any user data to the developer's or any third-party servers.</strong>
-      Requests to the Google Drive API and userinfo endpoint are made directly to Google's servers solely to
-      retrieve the user's own data. Settings (email and drive letters) are stored only in Chrome's local storage.
+      The Extension only requests metadata of the specific folder you have open and its ancestors, and only when you
+      click the button. It <strong>never reads, downloads, creates, modifies, or deletes the contents of any file</strong>,
+      and it does not list or search your other files.
     </p>
 
-    <h2>3. Permissions and Scopes</h2>
-    <p>Access to the Google Drive API is strictly read-only. The requested OAuth scopes are:</p>
+    <h2>3. How Google user data is used</h2>
+    <p>
+      Google user data is used <strong>only</strong> to generate the folder path you requested and to select the
+      drive letter for your account. It is not used for any other purpose, including advertising, analytics,
+      profiling, determining creditworthiness, or developing, improving, or training generalized
+      artificial intelligence or machine learning models.
+    </p>
+
+    <h2>4. Storage and retention</h2>
     <ul>
-      <li><code>.../auth/drive.readonly</code>: retrieve folder name and parent information (read-only)</li>
-      <li><code>.../auth/userinfo.email</code>: identify the account for drive-letter settings</li>
+      <li><strong>Folder metadata</strong> is processed only in memory inside the Extension's popup and is discarded
+        when the popup closes. It is never saved.</li>
+      <li><strong>The generated path</strong> is written to your clipboard only when you click the button.</li>
+      <li><strong>Email address</strong>: the address returned by Google is used only to look up your drive-letter
+        setting and is not saved by the Extension.</li>
+      <li><strong>Drive-letter settings</strong> (pairs of an email address and a drive letter that you enter yourself)
+        are stored in Chrome's extension storage (<code>chrome.storage.sync</code>), which Chrome may sync across your
+        own signed-in browsers. They remain until you delete them or uninstall the Extension.</li>
+      <li><strong>OAuth access tokens</strong> are issued and cached by Chrome's built-in identity API and are not
+        stored separately by the Extension.</li>
     </ul>
-    <p>The Extension never reads file contents, nor creates, edits, or deletes any files.</p>
 
-    <h2>4. No Sharing or Sale</h2>
-    <p>We never sell, transfer, or share collected data with third parties, and never use it for advertising, analytics, or tracking.</p>
-
-    <h2>5. Data Deletion</h2>
+    <h2>5. Sharing and transfer</h2>
     <p>
-      Locally stored settings can be removed at any time by uninstalling the Extension or deleting the relevant
-      entries from the settings screen. The Extension holds no data externally.
+      The Extension has no servers. <strong>No Google user data or any other data is transmitted to the developer
+      or to any third party.</strong> The only network communication is between your browser and Google's APIs
+      (<code>www.googleapis.com</code>) over HTTPS, made solely to retrieve your own data as described above.
+      Data is never sold, rented, or shared.
     </p>
 
-    <h2>6. Contact</h2>
-    <p>For questions about this policy, contact <a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a>.</p>
+    <h2>6. Limited Use disclosure</h2>
+    <p class="notice">
+      Drive Path Copier's use and transfer to any other app of information received from Google APIs will adhere to the
+      <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>,
+      including the
+      <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Limited Use requirements</a>.
+    </p>
+
+    <h2>7. Security</h2>
+    <p>
+      All requests to Google APIs use HTTPS. Access to Google Drive is read-only and limited to folder metadata.
+      Because no data is stored outside your browser, there is no external database that could be breached.
+      The full source code is public on
+      <a href="https://github.com/yuuukichiiii/drive-path-copier">GitHub</a>, so its behavior can be audited.
+    </p>
+
+    <h2>8. Your choices and data deletion</h2>
+    <ul>
+      <li>You can revoke the Extension's access to your Google account at any time at
+        <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a>.</li>
+      <li>You can delete drive-letter settings from the Extension's settings screen (gear icon).</li>
+      <li>Uninstalling the Extension removes all data it stored in your browser.</li>
+    </ul>
+
+    <h2>9. Children</h2>
+    <p>The Extension is not directed at children under 13 and does not knowingly collect data from them.</p>
+
+    <h2>10. Changes to this policy</h2>
+    <p>Any changes will be posted on this page with an updated effective date.</p>
+
+    <h2>11. Contact</h2>
+    <p>Questions about this policy: <a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a></p>
+
+    <hr id="ja">
+
+    <h1>プライバシーポリシー</h1>
+    <p class="meta">施行日：2026年11月7日</p>
+
+    <p>
+      本ポリシーは、Google Chrome 拡張機能 <strong>Drive Path Copier</strong>（以下「本拡張機能」）が、
+      Google API を通じて取得する Google ユーザーデータを含むデータを、どのように取得・利用・保存・共有するかを説明します。
+      本拡張機能は個人の開発者が開発・運営しています（連絡先：<a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a>）。
+    </p>
+
+    <h2>1. 本拡張機能の機能</h2>
+    <p>
+      ブラウザで Google Drive のフォルダを開いた状態でボタンを押すと、そのフォルダを Google ドライブ（パソコン版）で開く場合の
+      Windows エクスプローラーのパス（例：<code>G:\共有ドライブ\プロジェクト\フォルダ</code>）を組み立て、クリップボードにコピーします。
+      これが本拡張機能の唯一の目的です。
+    </p>
+
+    <h2>2. 取得する Google ユーザーデータ</h2>
+    <table>
+      <tr><th>データ</th><th>OAuth スコープ</th><th>必要な理由</th></tr>
+      <tr>
+        <td>現在開いている Google Drive フォルダおよびその親フォルダのメタデータ（フォルダ名、親フォルダ ID、共有ドライブ ID）と、共有ドライブ名</td>
+        <td><code>https://www.googleapis.com/auth/drive.readonly</code></td>
+        <td>開いているフォルダからルートまでの階層をたどり、パスを組み立てるため</td>
+      </tr>
+      <tr>
+        <td>ログイン中の Google アカウントのメールアドレス</td>
+        <td><code>https://www.googleapis.com/auth/userinfo.email</code></td>
+        <td>そのアカウントに割り当てたドライブ文字（G:、H: など）を選ぶため</td>
+      </tr>
+    </table>
+    <p>
+      取得するのは、ボタンを押したときに開いているフォルダとその上位フォルダのメタデータのみです。
+      <strong>ファイルの内容の閲覧・ダウンロード・作成・変更・削除は一切行わず</strong>、他のファイルの一覧取得や検索も行いません。
+    </p>
+
+    <h2>3. Google ユーザーデータの利用目的</h2>
+    <p>
+      Google ユーザーデータは、要求されたフォルダパスの生成と、アカウントに対応するドライブ文字の選択<strong>のみ</strong>に使用します。
+      広告、分析、プロファイリング、信用力の判断、汎用 AI・機械学習モデルの開発・改善・学習を含む、その他の目的には一切使用しません。
+    </p>
+
+    <h2>4. 保存と保持期間</h2>
+    <ul>
+      <li><strong>フォルダのメタデータ</strong>：拡張機能のポップアップ内のメモリ上でのみ処理し、ポップアップを閉じると破棄します。保存しません。</li>
+      <li><strong>生成したパス</strong>：ボタンを押したときにのみクリップボードへ書き込みます。</li>
+      <li><strong>メールアドレス</strong>：Google から返されたアドレスはドライブ文字設定の照合にのみ使い、本拡張機能は保存しません。</li>
+      <li><strong>ドライブ文字の設定</strong>（ユーザー自身が入力したメールアドレスとドライブ文字の組）：Chrome の拡張機能ストレージ（<code>chrome.storage.sync</code>）に保存され、ユーザー自身のログイン済みブラウザ間で同期される場合があります。削除するかアンインストールするまで保持されます。</li>
+      <li><strong>OAuth アクセストークン</strong>：Chrome 標準の identity API が発行・キャッシュし、本拡張機能が別途保存することはありません。</li>
+    </ul>
+
+    <h2>5. 共有と転送</h2>
+    <p>
+      本拡張機能はサーバーを持ちません。<strong>Google ユーザーデータを含むいかなるデータも、開発者や第三者に送信しません。</strong>
+      通信は、上記のとおりユーザー本人のデータを取得するための、ブラウザと Google API（<code>www.googleapis.com</code>）間の HTTPS 通信のみです。
+      データの販売・貸与・共有は行いません。
+    </p>
+
+    <h2>6. Limited Use（限定的使用）に関する開示</h2>
+    <p class="notice">
+      Drive Path Copier が Google API から受け取った情報の使用および他のアプリへの転送は、
+      <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API サービスのユーザーデータに関するポリシー</a>
+      （<a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">限定的使用の要件</a>を含む）を遵守します。
+    </p>
+
+    <h2>7. セキュリティ</h2>
+    <p>
+      Google API への通信はすべて HTTPS で行います。Google Drive へのアクセスは読み取り専用で、フォルダのメタデータに限られます。
+      ブラウザ外にデータを保存しないため、漏えいの対象となる外部データベースは存在しません。
+      ソースコードはすべて <a href="https://github.com/yuuukichiiii/drive-path-copier">GitHub</a> で公開しており、動作を確認できます。
+    </p>
+
+    <h2>8. ユーザーの選択とデータの削除</h2>
+    <ul>
+      <li>Google アカウントへのアクセス許可は、<a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a> からいつでも取り消せます。</li>
+      <li>ドライブ文字の設定は、拡張機能の設定画面（歯車アイコン）から削除できます。</li>
+      <li>拡張機能をアンインストールすると、ブラウザに保存したデータはすべて削除されます。</li>
+    </ul>
+
+    <h2>9. 子どもについて</h2>
+    <p>本拡張機能は 13 歳未満の子どもを対象としておらず、子どものデータを意図的に収集することはありません。</p>
+
+    <h2>10. ポリシーの変更</h2>
+    <p>本ポリシーを変更する場合は、施行日を更新したうえで本ページに掲載します。</p>
+
+    <h2>11. お問い合わせ</h2>
+    <p>本ポリシーに関するお問い合わせ：<a href="mailto:tanaka.yuki.dev@gmail.com">tanaka.yuki.dev@gmail.com</a></p>
 
     <footer>
       © 2026 Drive Path Copier ·

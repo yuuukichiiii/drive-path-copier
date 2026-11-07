@@ -8,7 +8,7 @@
     "https://www.googleapis.com/*"
   ],
   "oauth2": {
-    "client_id": "437776167125-ka9r05t6ejsg46dh77h581s51ofjo8bg.apps.googleusercontent.com",
+    "client_id": "371002347219-8b76bgeq595qn0tpoh8d5asehd50i5au.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/drive.readonly",
       "https://www.googleapis.com/auth/userinfo.email"
