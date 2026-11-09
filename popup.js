@@ -38,14 +38,25 @@ async function renderMappings() {
   }
 
   entries.forEach(([email, letter]) => {
+    // 入力値を HTML として解釈させないよう、innerHTML は使わず textContent で組み立てる
     const row = document.createElement('div');
     row.className = 'mapping-row';
-    row.innerHTML = `
-      <span class="mapping-email" title="${email}">${email}</span>
-      <span class="mapping-letter">${letter}:</span>
-      <button class="delete-btn" data-email="${email}">✕</button>
-    `;
-    row.querySelector('.delete-btn').addEventListener('click', async () => {
+
+    const emailSpan = document.createElement('span');
+    emailSpan.className = 'mapping-email';
+    emailSpan.title = email;
+    emailSpan.textContent = email;
+
+    const letterSpan = document.createElement('span');
+    letterSpan.className = 'mapping-letter';
+    letterSpan.textContent = `${letter}:`;
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'delete-btn';
+    delBtn.textContent = '✕';
+
+    row.append(emailSpan, letterSpan, delBtn);
+    delBtn.addEventListener('click', async () => {
       const m = await loadMappings();
       delete m[email];
       await saveMappings(m);
@@ -81,6 +92,13 @@ addBtn.addEventListener('click', async () => {
   renderMappings();
 });
 
+// ── フォルダ名の無害化 ──────────────────────────────────────
+// フォルダ名は共有元の他人が自由に付けられる。改行などの制御文字が入っていると、
+// コピーしたパスをターミナルに貼り付けた時点でコマンドが実行されうる（ペーストジャッキング）。
+// 表示方向の制御文字・ゼロ幅文字は、表示とコピー内容を食い違わせる偽装に使えるため併せて除去する。
+const UNSAFE_CHARS = /[\u0000-\u001F\u007F-\u009F​-‏‪-‮⁦-⁩﻿]/g;
+const sanitizeName = (name) => String(name ?? '').replace(UNSAFE_CHARS, '');
+
 // ── クリップボード ────────────────────────────────────────
 // 初回の OAuth 同意画面（別ウィンドウ）を閉じた直後はポップアップにフォーカスがなく、
 // navigator.clipboard.writeText が "Document is not focused" で失敗する。
@@ -115,7 +133,8 @@ btn.addEventListener('click', async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab?.url) throw new Error('タブのURLを取得できませんでした');
 
-    const match = tab.url.match(/\/folders\/([\w-]+)/);
+    const url = new URL(tab.url);
+    const match = url.hostname === 'drive.google.com' && url.pathname.match(/\/folders\/([\w-]+)/);
     if (!match) {
       setStatus('Google Drive のフォルダページを開いた状態で押してください', 'error');
       btn.disabled = false;
@@ -171,7 +190,7 @@ btn.addEventListener('click', async () => {
       if (!f.parents || f.parents.length === 0) break;
 
       const pid = f.parents[0];
-      parts.unshift(f.name);
+      parts.unshift(sanitizeName(f.name));
       if (pid === driveId) break;
       cur = pid;
     }
@@ -184,7 +203,7 @@ btn.addEventListener('click', async () => {
         { headers }
       );
       const d = await r.json();
-      prefix = `${driveLetter}:\\共有ドライブ\\${d.name || driveId}`;
+      prefix = `${driveLetter}:\\共有ドライブ\\${sanitizeName(d.name) || driveId}`;
     }
 
     // 7. Windowsパス形式に組み立て・コピー
