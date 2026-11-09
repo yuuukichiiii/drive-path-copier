@@ -81,6 +81,28 @@ addBtn.addEventListener('click', async () => {
   renderMappings();
 });
 
+// ── クリップボード ────────────────────────────────────────
+// 初回の OAuth 同意画面（別ウィンドウ）を閉じた直後はポップアップにフォーカスがなく、
+// navigator.clipboard.writeText が "Document is not focused" で失敗する。
+// その場合は execCommand('copy') にフォールバックする（clipboardWrite 権限があれば
+// フォーカスやユーザー操作がなくても書き込める）。
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  }
+}
+
 // ── メイン処理 ────────────────────────────────────────────
 
 btn.addEventListener('click', async () => {
@@ -167,11 +189,23 @@ btn.addEventListener('click', async () => {
 
     // 7. Windowsパス形式に組み立て・コピー
     const winPath = prefix + '\\' + parts.join('\\');
-    await navigator.clipboard.writeText(winPath);
-
-    setStatus('✅ コピーしました！', 'success');
     pathBox.style.display = 'block';
     pathBox.textContent = winPath;
+
+    if (await copyText(winPath)) {
+      setStatus('✅ コピーしました！', 'success');
+    } else {
+      // 最終手段: フォーカスとユーザー操作がある次のクリックでコピーする
+      setStatus('パスを取得しました。ポップアップ内をクリックするとコピーします');
+      document.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(winPath);
+          setStatus('✅ コピーしました！', 'success');
+        } catch (e) {
+          setStatus('エラー: ' + e.message, 'error');
+        }
+      }, { once: true });
+    }
 
   } catch (e) {
     setStatus('エラー: ' + e.message, 'error');
