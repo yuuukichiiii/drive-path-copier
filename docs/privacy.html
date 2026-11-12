@@ -88,6 +88,8 @@
       <li><strong>Drive-letter settings</strong> (pairs of an email address and a drive letter that you enter yourself)
         are stored in Chrome's extension storage (<code>chrome.storage.sync</code>), which Chrome may sync across your
         own signed-in browsers. They remain until you delete them or uninstall the Extension.</li>
+      <li><strong>Folder-name settings</strong> (the names used for "My Drive" and "Shared drives" in the path, which
+        you can change to match your Windows language) are stored the same way. They contain no Google user data.</li>
       <li><strong>OAuth access tokens</strong> are issued and cached by Chrome's built-in identity API and are not
         stored separately by the Extension.</li>
     </ul>
@@ -182,6 +184,7 @@
       <li><strong>生成したパス</strong>：ボタンを押したときにのみクリップボードへ書き込みます。</li>
       <li><strong>メールアドレス</strong>：Google から返されたアドレスはドライブ文字設定の照合にのみ使い、本拡張機能は保存しません。</li>
       <li><strong>ドライブ文字の設定</strong>（ユーザー自身が入力したメールアドレスとドライブ文字の組）：Chrome の拡張機能ストレージ（<code>chrome.storage.sync</code>）に保存され、ユーザー自身のログイン済みブラウザ間で同期される場合があります。削除するかアンインストールするまで保持されます。</li>
+      <li><strong>フォルダ名の設定</strong>（パスに使う「マイドライブ」「共有ドライブ」の名前。Windows の表示言語に合わせて変更可能）：上記と同じ場所に保存します。Google ユーザーデータは含みません。</li>
       <li><strong>OAuth アクセストークン</strong>：Chrome 標準の identity API が発行・キャッシュし、本拡張機能が別途保存することはありません。</li>
     </ul>
 

@@ -10,6 +10,10 @@ const mappingList  = document.getElementById('mapping-list');
 const addEmail     = document.getElementById('add-email');
 const addLetter    = document.getElementById('add-letter');
 const addBtn       = document.getElementById('add-mapping-btn');
+const nameMy       = document.getElementById('name-my');
+const nameShared   = document.getElementById('name-shared');
+const saveNamesBtn = document.getElementById('save-names-btn');
+const namesStatus  = document.getElementById('names-status');
 
 function setStatus(msg, type = '') {
   status.textContent = msg;
@@ -66,10 +70,56 @@ async function renderMappings() {
   });
 }
 
+// ── 設定（フォルダ名）────────────────────────────────────
+// パソコン版ドライブは Windows の表示言語でフォルダ名が変わる（英語版は My Drive / Shared drives）。
+// 既定値はブラウザの表示言語から推定し、合わない環境では設定画面で書き換えてもらう。
+const DEFAULT_NAMES = (chrome.i18n.getUILanguage() || '').toLowerCase().startsWith('ja')
+  ? { myDrive: 'マイドライブ', sharedDrives: '共有ドライブ' }
+  : { myDrive: 'My Drive', sharedDrives: 'Shared drives' };
+
+// Windows のフォルダ名に使えない文字と制御文字
+const INVALID_FOLDER_CHARS = /[\\/:*?"<>|\u0000-\u001F\u007F-\u009F]/;
+
+async function loadFolderNames() {
+  const { folderNames = {} } = await chrome.storage.sync.get('folderNames');
+  return {
+    myDrive:      folderNames.myDrive      || DEFAULT_NAMES.myDrive,
+    sharedDrives: folderNames.sharedDrives || DEFAULT_NAMES.sharedDrives,
+  };
+}
+
+async function renderFolderNames() {
+  const names = await loadFolderNames();
+  nameMy.value = names.myDrive;
+  nameShared.value = names.sharedDrives;
+  nameMy.placeholder = DEFAULT_NAMES.myDrive;
+  nameShared.placeholder = DEFAULT_NAMES.sharedDrives;
+  namesStatus.textContent = '';
+}
+
+saveNamesBtn.addEventListener('click', async () => {
+  const myDrive = nameMy.value.trim();
+  const sharedDrives = nameShared.value.trim();
+  if (INVALID_FOLDER_CHARS.test(myDrive + sharedDrives)) {
+    namesStatus.className = 'error';
+    namesStatus.textContent = '\\ / : * ? " < > | は使えません';
+    return;
+  }
+  // 空欄は保存しない（= 既定値を使う）
+  const folderNames = {};
+  if (myDrive) folderNames.myDrive = myDrive;
+  if (sharedDrives) folderNames.sharedDrives = sharedDrives;
+  await chrome.storage.sync.set({ folderNames });
+  await renderFolderNames();
+  namesStatus.className = '';
+  namesStatus.textContent = '保存しました';
+});
+
 settingsBtn.addEventListener('click', () => {
   mainView.style.display = 'none';
   settingsView.style.display = 'block';
   renderMappings();
+  renderFolderNames();
 });
 
 backBtn.addEventListener('click', () => {
@@ -196,14 +246,15 @@ btn.addEventListener('click', async () => {
     }
 
     // 6. プレフィックスを組み立て
-    let prefix = `${driveLetter}:\\マイドライブ`;
+    const names = await loadFolderNames();
+    let prefix = `${driveLetter}:\\${names.myDrive}`;
     if (driveId) {
       const r = await fetch(
         `https://www.googleapis.com/drive/v3/drives/${driveId}?fields=name`,
         { headers }
       );
       const d = await r.json();
-      prefix = `${driveLetter}:\\共有ドライブ\\${sanitizeName(d.name) || driveId}`;
+      prefix = `${driveLetter}:\\${names.sharedDrives}\\${sanitizeName(d.name) || driveId}`;
     }
 
     // 7. Windowsパス形式に組み立て・コピー

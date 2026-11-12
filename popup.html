@@ -171,6 +171,26 @@
     }
     .add-label span { flex: 1; text-align: center; }
     .add-label span:last-child { flex: none; width: 40px; }
+    .section-sep { border-top: 1px solid #e8eaed; margin: 16px 0 14px; }
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .name-row label { width: 76px; font-size: 12px; color: #5f6368; }
+    .name-row input {
+      flex: 1;
+      padding: 6px 8px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 12px;
+      outline: none;
+    }
+    .name-row input:focus { border-color: #1a73e8; }
+    .names-actions { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    #names-status { font-size: 11.5px; color: #1e8e3e; }
+    #names-status.error { color: #d93025; }
   </style>
 </head>
 <body>
@@ -204,6 +224,26 @@
       <input type="text" id="add-letter" class="letter-input" placeholder="G" maxlength="1">
       <button class="add-mapping-btn" id="add-mapping-btn">追加</button>
     </div>
+
+    <div class="section-sep"></div>
+    <div class="settings-title">フォルダ名の設定</div>
+    <div class="settings-desc">
+      エクスプローラーに表示されている名前に合わせてください。<br>
+      英語版 Windows では <b>My Drive</b> / <b>Shared drives</b> です。空欄で保存すると既定値に戻ります。
+    </div>
+    <div class="name-row">
+      <label for="name-my">マイドライブ</label>
+      <input type="text" id="name-my">
+    </div>
+    <div class="name-row">
+      <label for="name-shared">共有ドライブ</label>
+      <input type="text" id="name-shared">
+    </div>
+    <div class="names-actions">
+      <button class="add-mapping-btn" id="save-names-btn">保存</button>
+      <span id="names-status"></span>
+    </div>
+
     <div style="margin-top:14px;">
       <button class="icon-btn" id="back-btn" style="font-size:13px;gap:4px;color:#1a73e8;">
         ← メイン画面に戻る
