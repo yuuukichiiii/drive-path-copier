@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Drive Path Copier",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Google DriveのフォルダパスをWindowsパス形式（G:\\...）でクリップボードにコピーします",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsoFgmFWgvLo9f/oa8bJOQRjpt2/Hgmmj5c69ccbvwOtx6ks3qyDkDotLylRKDho5uPaUudXTy0l44yAUpHTuL30c3+lYfHogSpkL15lCwDZBXVUk4AYZgqgzQeK0N/RK+uNYBiHowJk+WYY3b7s8Dh/IFdjwOg9A8PHF/cjEoM49rAgImhnQleJoM2Kuga/XYgTSaPeUc2KZpFHeqKH2jLlCfF6Ytjq821z051mkoI+V8wEOd2FOMkIk4nf4fBRcl2NqYrycTsDx6AWlOhV2T5pniXNDzxujB+jdGRDbycrWnAPjqI31T13VyjGV9vr3WJXOWPajR2UANTbwJ2NxrQIDAQAB",
   "permissions": ["identity", "activeTab", "storage", "clipboardWrite"],

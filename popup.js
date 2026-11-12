@@ -191,6 +191,9 @@ btn.addEventListener('click', async () => {
       return;
     }
     const startId = match[1];
+    // Drive で開いているアカウント（/drive/u/1/... や ?authuser=1）。拡張機能は常に
+    // Chrome にログイン中のアカウントで API を呼ぶため、別アカウントのフォルダは開けない。
+    const authUser = url.pathname.match(/\/u\/(\d+)\//)?.[1] ?? url.searchParams.get('authuser');
 
     // 2. OAuth トークンを取得
     const token = await new Promise((resolve, reject) => {
@@ -221,9 +224,20 @@ btn.addEventListener('click', async () => {
       }
       if (!r.ok) {
         const err = await r.json().catch(() => ({}));
-        throw new Error(err?.error?.message || `HTTP ${r.status}`);
+        const e = new Error(err?.error?.message || `HTTP ${r.status}`);
+        e.status = r.status;
+        throw e;
       }
       return r.json();
+    };
+
+    // 開いているフォルダ自体が見つからない = Chrome のアカウントからはアクセスできない
+    const accountMismatchMessage = () => {
+      const who = email ? `Chrome にログイン中のアカウント（${email}）` : 'Chrome にログイン中のアカウント';
+      const otherAccount = authUser && authUser !== '0' && authUser.toLowerCase() !== (email || '').toLowerCase();
+      return `${who}からはこのフォルダを開けません。` +
+        (otherAccount ? 'Drive では別のアカウントで開いているようです。' : '') +
+        '別のアカウントのフォルダで使うには、そのアカウントでログインした Chrome プロファイルを使ってください。';
     };
 
     // 5. 親フォルダを遡ってパスを組み立て
@@ -233,7 +247,13 @@ btn.addEventListener('click', async () => {
     let driveId = null;
 
     for (let i = 0; i < 30; i++) {
-      const f = await getFile(cur);
+      let f;
+      try {
+        f = await getFile(cur);
+      } catch (e) {
+        if (i === 0 && e.status === 404) throw new Error(accountMismatchMessage());
+        throw e;
+      }
       if (!driveId && f.driveId) driveId = f.driveId;
 
       // parentsがない = ルートフォルダ → 名前を追加せず終了
